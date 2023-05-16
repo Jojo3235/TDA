@@ -50,41 +50,41 @@ class Cola(object):
             print(dato)
             i += 1
 
-#Generar cola
+# #Generar cola
 
-cola = Cola()
+# cola = Cola()
 
-#Arrive
+# #Arrive
 
-cola.arrive(1)
-cola.arrive(2)
-cola.arrive(3)
-cola.arrive(4)
+# cola.arrive(1)
+# cola.arrive(2)
+# cola.arrive(3)
+# cola.arrive(4)
 
-#Atencion
+# #Atencion
 
-print(cola.atencion())
+# print(cola.atencion())
 
-#Barrido
+# #Barrido
 
-cola.barrido()
+# cola.barrido()
 
-#Mover al final
+# #Mover al final
 
-print(cola.mover_al_final())
+# print(cola.mover_al_final())
 
-#Barrido
+# #Barrido
 
-cola.barrido()
+# cola.barrido()
 
-#Primero
+# #Primero
 
-print(cola.primero())
+# print(cola.primero())
 
-#Size
+# #Size
 
-print(cola.size)
+# print(cola.size)
 
-#Cola vacia
+# #Cola vacia
 
-print(cola.cola_vacia())
+# print(cola.cola_vacia())
