@@ -174,6 +174,78 @@ class Matriz(object):
 
         return transpuesta
     
+    def sumar(self, matriz):
+        if self.filas != matriz.filas or self.columnas != matriz.columnas:
+            return None
+
+        resultado = Matriz()
+
+        for i in range(self.filas):
+            for j in range(self.columnas):
+                resultado.insertar(i, j, self.obtener_valor(i, j) + matriz.obtener_valor(i, j))
+
+        return resultado
+    
+    def restar(self, matriz):
+        if self.filas != matriz.filas or self.columnas != matriz.columnas:
+            return None
+
+        resultado = Matriz()
+
+        for i in range(self.filas):
+            for j in range(self.columnas):
+                resultado.insertar(i, j, self.obtener_valor(i, j) - matriz.obtener_valor(i, j))
+
+        return resultado
+
+    #calcular determinante con el metodo de strassen, para ello aumentar a matriz con filas y columnas de potencia de 2
+    def determinante_strassen(self):
+        if self.filas != self.columnas:
+            return None
+
+        #aumentar matriz a potencia de 2
+        potencia = 1
+        while potencia < self.filas:
+            potencia *= 2
+
+        matriz_aumentada = Matriz()
+
+        for i in range(potencia):
+            for j in range(potencia):
+                if i < self.filas and j < self.columnas:
+                    matriz_aumentada.insertar(i, j, self.obtener_valor(i, j))
+                else:
+                    matriz_aumentada.insertar(i, j, 0)
+
+        return matriz_aumentada.determinante_strassen_aux()
+    
+    def determinante_strassen_aux(self):
+        if self.filas == 1:
+            return self.obtener_valor(0, 0)
+
+        a = Matriz()
+        b = Matriz()
+        c = Matriz()
+        d = Matriz()
+
+        for i in range(self.filas):
+            for j in range(self.columnas):
+                if i < self.filas // 2 and j < self.columnas // 2:
+                    a.insertar(i, j, self.obtener_valor(i, j))
+                elif i < self.filas // 2 and j >= self.columnas // 2:
+                    b.insertar(i, j - self.columnas // 2, self.obtener_valor(i, j))
+                elif i >= self.filas // 2 and j < self.columnas // 2:
+                    c.insertar(i - self.filas // 2, j, self.obtener_valor(i, j))
+                elif i >= self.filas // 2 and j >= self.columnas // 2:
+                    d.insertar(i - self.filas // 2, j - self.columnas // 2, self.obtener_valor(i, j))
+
+        m1 = a.determinante_strassen_aux()
+        m2 = b.determinante_strassen_aux()
+        m3 = c.determinante_strassen_aux()
+        m4 = d.determinante_strassen_aux()
+
+        return m1 * m4 - m2 * m3
+    
     def __str__(self):
         nodo_actual = self.inicio
         matriz = ''
@@ -198,11 +270,17 @@ matriz = Matriz()
 matriz.insertar(0, 0, 1)
 matriz.insertar(0, 1, 2)
 matriz.insertar(0, 2, 3)
+
 matriz.insertar(1, 0, 4)
 matriz.insertar(1, 1, 5)
 matriz.insertar(1, 2, 6)
+
 matriz.insertar(2, 0, 7)
 matriz.insertar(2, 1, 8)
 matriz.insertar(2, 2, 9)
 
+n = matriz.determinante_strassen()
+
 print(matriz)
+
+print(n)
