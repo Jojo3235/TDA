@@ -125,21 +125,21 @@ class ArbolRojoNegro:
 
         return diccionario
 
-arbol = ArbolRojoNegro()
-#insertar 27 19 34 7 25 31 65 2 49 98
-arbol.insertar(27)
-arbol.insertar(19)
-arbol.insertar(34)
-arbol.insertar(7)
-arbol.insertar(25)
-arbol.insertar(31)
-arbol.insertar(65)
-arbol.insertar(2)
-arbol.insertar(49)
-arbol.insertar(98)
+# arbol = ArbolRojoNegro()
+# #insertar 27 19 34 7 25 31 65 2 49 98
+# arbol.insertar(27)
+# arbol.insertar(19)
+# arbol.insertar(34)
+# arbol.insertar(7)
+# arbol.insertar(25)
+# arbol.insertar(31)
+# arbol.insertar(65)
+# arbol.insertar(2)
+# arbol.insertar(49)
+# arbol.insertar(98)
 
-# Para acceder a la raíz del árbol
-raiz = arbol.raiz
-print(raiz.valor)
+# # Para acceder a la raíz del árbol
+# raiz = arbol.raiz
+# print(raiz.valor)
 
-arbol.mostrar_arbol()
+# arbol.mostrar_arbol()
