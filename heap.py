@@ -78,6 +78,14 @@ def heapsort(heap):
         quitar(heap)
     heap.tamanio = aux
 
+def buscar(heap, buscado):
+    i = 0
+    while i < heap.tamanio and heap.vector[i][1] != buscado:
+        i += 1
+    if i < heap.tamanio:
+        return i
+    else:
+        return -1
 
 # from random import randint
 
@@ -127,3 +135,12 @@ def heapsort(heap):
 # heapsort(monticulo)
 
 # print(monticulo.vector)
+
+# heap2 = Heap(10)
+
+# for i in range(10):
+#     arribo(heap2, i, i)
+
+# print(heap2.vector)
+
+# print(buscar(heap2, 6541))
