@@ -192,12 +192,26 @@ def barrido_amplitud(grafo, vertice):
 def mostrar_aristas(grafo):
     aux = grafo.inicio
     while aux is not None:
-        print(aux.info)
+        print("Nodo:", aux.info)
         adyacentes = aux.adyacentes.inicio
         while adyacentes is not None:
-            print(adyacentes.destino, adyacentes.info)
+            print("Arista de ", aux.info, "con", adyacentes.destino, "peso:", adyacentes.info)
             adyacentes = adyacentes.sig
         aux = aux.sig
+
+def grado(grafo, vertice):
+    grado = 0
+    aux = grafo.inicio
+    while aux is not None:
+        adyacentes = aux.adyacentes.inicio
+        while adyacentes is not None:
+            if adyacentes.destino == vertice.info:
+                grado += 1
+            adyacentes = adyacentes.sig
+        aux = aux.sig
+    return grado
+
+
 
 grafo = Grafo(True)
 insertar_vertice(grafo, 1)
@@ -210,7 +224,7 @@ insertar_vertice(grafo, 6)
 vertice1 = buscar_vertice(grafo, 1)
 vertice2 = buscar_vertice(grafo, 2)
 
-insertar_arista(grafo, 1, vertice1, vertice2)
+insertar_arista(grafo, 5, vertice1, vertice2)
 insertar_arista(grafo, 1, vertice1, vertice2)
 insertar_arista(grafo, 1, vertice1, vertice2)
 
@@ -222,3 +236,4 @@ insertar_arista(grafo, 1, vertice1, vertice3)
 vertice5 = buscar_vertice(grafo, 5)
 
 mostrar_aristas(grafo)
+print(grado(grafo, vertice2))
