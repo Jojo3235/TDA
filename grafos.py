@@ -211,6 +211,25 @@ def grado(grafo, vertice):
         aux = aux.sig
     return grado
 
+from heap import Heap, arribo as arribo_heap, atencion as atencion_heap, heap_vacio, buscar as buscar_heap
+from pilas import Pila
+def dijkstra(grafo, origen, destino):
+    no_visitados = Heap(tamanio(grafo))
+    camino = Pila()
+    aux = grafo.inicio
+    while aux is not None:
+        if aux.info == origen:
+            arribo_heap(no_visitados, [aux, None], 0)
+        else:
+            arribo_heap(no_visitados, [aux, None], 9999999)
+        aux = aux.sig
+    while not heap_vacio(no_visitados):
+        dato = atencion_heap(no_visitados)
+        Pila.apilar(camino, dato)
+        aux = dato[1][0]
+        while aux is not None:
+            pos = buscar_heap(no_visitados, aux.info)
+            
 
 
 grafo = Grafo(True)
