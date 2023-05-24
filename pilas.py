@@ -42,44 +42,42 @@ class Pila(object):
             Pila.apilar(pila, dato)
 
 
-#Generar pila
+# #Generar pila
 
-pila = Pila()
+# pila = Pila()
 
-#Apilar
+# #Apilar
 
-pila.apilar(1)
-pila.apilar(2)
-pila.apilar(3)
-pila.apilar(4)
+# pila.apilar(1)
+# pila.apilar(2)
+# pila.apilar(3)
+# pila.apilar(4)
 
-#Desapilar
+# #Desapilar
 
-print(pila.desapilar())
-print(pila.desapilar())
+# print(pila.desapilar())
+# print(pila.desapilar())
 
-#Verificar si la pila esta vacia
+# #Verificar si la pila esta vacia
 
-print(pila.pila_vacia())
+# print(pila.pila_vacia())
 
-#Verificar el elemento en la cima
+# #Verificar el elemento en la cima
 
-print(pila.en_cima())
+# print(pila.en_cima())
 
-#Verificar el tamaño de la pila
+# #Verificar el tamaño de la pila
 
-print(pila.size)
+# print(pila.size)
 
-#Verificar el elemento en la cima
+# #Verificar el elemento en la cima
 
-print(pila.en_cima())
+# print(pila.en_cima())
 
-#Barrido de la pila
+# #Barrido de la pila
 
-pila.barrido()
+# pila.barrido()
 
-print(pila.pila_vacia())
+# print(pila.pila_vacia())
 
-print(pila.size)
-
-print(pila.barrido()    )
+# print(pila.size)

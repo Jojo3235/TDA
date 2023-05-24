@@ -233,7 +233,7 @@ def dijkstra(grafo, origen):
             if distancia < distancias[adyacente.destino]:
                 distancias[adyacente.destino] = distancia
                 previos[adyacente.destino] = actual
-                intercambio_heap(heap, buscar_heap(heap, adyacente.destino), distancia)
+                cambiar_prioridad_heap(heap, buscar_heap(heap, adyacente.destino), distancia)
     return distancias, previos
 
 
