@@ -173,21 +173,22 @@ def barrido_profundidad(grafo, vertice):
 from colas import Cola
 def barrido_amplitud(grafo, vertice):
     cola = Cola()
-    while vertice is not None:
-        if not vertice.visitado:
-            vertice.visitado = True
-            Cola.arrive(cola, vertice)
-            while not Cola.cola_vacia(cola):
-                nodo = Cola.atencion(cola)
-                print(nodo.info)
-                adyacentes = nodo.adyacentes.inicio
-                while adyacentes is not None:
-                    adyacente = buscar_vertice(grafo, adyacentes.destino)
-                    if not adyacente.visitado:
-                        adyacente.visitado = True
-                        Cola.arrive(cola, adyacente)
-                    adyacentes = adyacentes.sig
-        vertice = vertice.sig
+    Cola.arrive(cola, vertice)
+    marcar_no_visitado(grafo)  # Marcar todos los vértices como no visitados
+    vertice.visitado = True  # Marcar el vértice inicial como visitado
+
+    while not Cola.cola_vacia(cola):
+        nodo = Cola.atencion(cola)
+        print(nodo.info)
+
+        adyacentes = nodo.adyacentes.inicio
+        while adyacentes is not None:
+            adyacente = buscar_vertice(grafo, adyacentes.destino)
+            if not adyacente.visitado:
+                adyacente.visitado = True
+                Cola.arrive(cola, adyacente)
+            adyacentes = adyacentes.sig
+
 
 def mostrar_aristas(grafo):
     aux = grafo.inicio
@@ -211,25 +212,29 @@ def grado(grafo, vertice):
         aux = aux.sig
     return grado
 
-from heap import Heap, arribo as arribo_heap, atencion as atencion_heap, heap_vacio, buscar as buscar_heap
-from pilas import Pila
-def dijkstra(grafo, origen, destino):
-    no_visitados = Heap(tamanio(grafo))
-    camino = Pila()
-    aux = grafo.inicio
-    while aux is not None:
-        if aux.info == origen:
-            arribo_heap(no_visitados, [aux, None], 0)
-        else:
-            arribo_heap(no_visitados, [aux, None], 9999999)
-        aux = aux.sig
-    while not heap_vacio(no_visitados):
-        dato = atencion_heap(no_visitados)
-        Pila.apilar(camino, dato)
-        aux = dato[1][0]
-        while aux is not None:
-            pos = buscar_heap(no_visitados, aux.info)
-            
+from heap import Heap, arribo as arribo_heap, atencion as atencion_heap, heap_vacio, buscar as buscar_heap, intercambio as intercambio_heap, cambiar_prioridad as cambiar_prioridad_heap
+import sys 
+
+def dijkstra(grafo, origen):
+    distancias = {}
+    previos = {}
+    heap = Heap(tamanio(grafo))
+    for vertice in grafo.inicio:
+        distancias[vertice.info] = sys.maxsize
+        previos[vertice.info] = None
+        arribo_heap(heap, vertice.info, sys.maxsize)
+    distancias[origen.info] = 0
+    cambiar_prioridad_heap(heap, buscar_heap(heap, origen.info), 0)
+    while not heap_vacio(heap):
+        actual = atencion_heap(heap)
+        vertice_actual = buscar_vertice(grafo, actual)
+        for adyacente in vertice_actual.adyacentes:
+            distancia = distancias[actual] + adyacente.info
+            if distancia < distancias[adyacente.destino]:
+                distancias[adyacente.destino] = distancia
+                previos[adyacente.destino] = actual
+                intercambio_heap(heap, buscar_heap(heap, adyacente.destino), distancia)
+    return distancias, previos
 
 
 grafo = Grafo(True)
@@ -242,17 +247,25 @@ insertar_vertice(grafo, 6)
 
 vertice1 = buscar_vertice(grafo, 1)
 vertice2 = buscar_vertice(grafo, 2)
-
-insertar_arista(grafo, 5, vertice1, vertice2)
-insertar_arista(grafo, 1, vertice1, vertice2)
-insertar_arista(grafo, 1, vertice1, vertice2)
-
 vertice3 = buscar_vertice(grafo, 3)
 vertice4 = buscar_vertice(grafo, 4)
-
-insertar_arista(grafo, 1, vertice1, vertice3)
-
 vertice5 = buscar_vertice(grafo, 5)
 
+insertar_arista(grafo, 5, vertice1, vertice2)
+insertar_arista(grafo, 1, vertice1, vertice3)
+insertar_arista(grafo, 1, vertice1, vertice2)
+
+print("Mostrar aristas:")
 mostrar_aristas(grafo)
+
+print("Grado de vertice2:")
 print(grado(grafo, vertice2))
+
+print("Barrido profundidad:")
+barrido_profundidad(grafo, grafo.inicio)
+
+print("Barrido amplitud:")
+barrido_amplitud(grafo, grafo.inicio)
+
+print("Dijkstra:")
+distancias, previos = dijkstra(grafo, vertice1)

@@ -136,11 +136,11 @@ def buscar(heap, buscado):
 
 # print(monticulo.vector)
 
-# heap2 = Heap(10)
+heap2 = Heap(10)
 
-# for i in range(10):
-#     arribo(heap2, i, i)
+for i in range(10):
+    arribo(heap2, i, i)
 
-# print(heap2.vector)
+print(heap2.vector)
 
-# print(buscar(heap2, 6541))
+print(buscar(heap2, 6541))
